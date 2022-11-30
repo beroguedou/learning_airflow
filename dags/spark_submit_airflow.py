@@ -145,11 +145,11 @@ with DAG(
     #)
 
     #script_to_s3 = DummyOperator(task_id="start_data_pipeline")
-    #script_to_s3 = PythonOperator(
-    #    task_id="script_to_s3",
-    #    python_callable=_local_to_s3,
-    #    op_kwargs={"filename": local_script, "key": s3_script}
-    #)
+    script_to_s3 = PythonOperator(
+        task_id="script_to_s3",
+        python_callable=_local_to_s3,
+        op_kwargs={"filename": local_script, "key": s3_script}
+    )
 
     # Create an EMR cluster
     #create_emr_cluster = EmrCreateJobFlowOperator(
