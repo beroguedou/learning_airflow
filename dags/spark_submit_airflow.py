@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.hooks.S3_hook import S3Hook
 from airflow.operators.python import PythonOperator
-from airflow.providers.amazon.aws.operators.s3 import S3CreateObjectOperator
+#from airflow.providers.amazon.aws.operators.s3 import S3CreateObjectOperator
 from airflow.contrib.operators.emr_create_job_flow_operator import (
     EmrCreateJobFlowOperator,
 )
@@ -128,21 +128,23 @@ with DAG(
 
     start_data_pipeline = DummyOperator(task_id="start_data_pipeline")
 
-    #data_to_s3 = PythonOperator(
-    #    task_id="data_to_s3",
-    #    python_callable=_local_to_s3,
-    #    op_kwargs={"filename": local_data, "key": s3_data}
-    #)
+    
 
-    data_to_s3 = S3CreateObjectOperator(
-        task_id="create_object",
-        s3_bucket=BUCKET_NAME ,
-        s3_key=s3_data,
-        data=local_data,
-        replace=True,
+    data_to_s3 = PythonOperator(
+        task_id="data_to_s3",
+        python_callable=_local_to_s3,
+        op_kwargs={"filename": local_data, "key": s3_data}
     )
 
-    script_to_s3 = DummyOperator(task_id="start_data_pipeline")
+    #data_to_s3 = S3CreateObjectOperator(
+    #    task_id="create_object",
+    #    s3_bucket=BUCKET_NAME ,
+    #    s3_key=s3_data,
+    #    data=local_data,
+    #    replace=True,
+    #)
+
+    #script_to_s3 = DummyOperator(task_id="start_data_pipeline")
     #script_to_s3 = PythonOperator(
     #    task_id="script_to_s3",
     #    python_callable=_local_to_s3,
