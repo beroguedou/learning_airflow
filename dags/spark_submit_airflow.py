@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from airflow import DAG
-from airflow.operators.dummy.dummy_operator import DummyOperator
+from airflow.operators.dummy_operator import DummyOperator
 from airflow.hooks.S3_hook import S3Hook
 from airflow.operators.python import PythonOperator
 from airflow.contrib.operators.emr_create_job_flow_operator import (
