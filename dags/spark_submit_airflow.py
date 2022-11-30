@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.hooks.S3_hook import S3Hook
 from airflow.operators.python import PythonOperator
-from airflow.providers.amazon.aws.operators.s3 import S3CreateObjectOperator
+from airflow.providers.amazon.aws.operators.s3_create_objects import S3CreateObjectOperator
 from airflow.contrib.operators.emr_create_job_flow_operator import (
     EmrCreateJobFlowOperator,
 )
