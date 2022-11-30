@@ -17,7 +17,7 @@ from airflow.contrib.operators.emr_terminate_job_flow_operator import (
 # Configurations
 BUCKET_NAME = "beranger-bucket-760254833251" 
 local_data = "./dags/data/movie_review.csv"
-s3_data = "raw-data/movie_review.csv"
+s3_data = "data/raw-data/movie_review.csv"
 local_script = "./dags/scripts/spark/random_text_classification.py"
 s3_script = "scripts/random_text_classification.py"
 s3_clean = "clean-data/"
