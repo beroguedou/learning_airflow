@@ -136,15 +136,6 @@ with DAG(
         op_kwargs={"filename": local_data, "key": s3_data}
     )
 
-    #data_to_s3 = S3CreateObjectOperator(
-    #    task_id="create_object",
-    #    s3_bucket=BUCKET_NAME ,
-    #    s3_key=s3_data,
-    #    data=local_data,
-    #    replace=True,
-    #)
-
-    #script_to_s3 = DummyOperator(task_id="start_data_pipeline")
     script_to_s3 = PythonOperator(
         task_id="script_to_s3",
         python_callable=_local_to_s3,
