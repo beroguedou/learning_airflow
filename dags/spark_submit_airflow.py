@@ -97,8 +97,8 @@ JOB_FLOW_OVERRIDES = {
         "KeepJobFlowAliveWhenNoSteps": False,
         "TerminationProtected": False,
     },
-    "JobFlowRole": "EMR_EC2_DefaultRole",
-    "ServiceRole": "EMR_DefaultRole",
+    "JobFlowRole": "super_role_for_airflow",
+    "ServiceRole": "super_role_for_airflow",
     "VisibleToAllUsers": True
 }
 
