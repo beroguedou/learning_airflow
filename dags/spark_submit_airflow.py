@@ -122,13 +122,11 @@ default_args = {
 with DAG(
     "spark_submit_airflow",
     default_args=default_args,
-    schedule_interval="0 10 * * *",
+    schedule_interval="0 * 10 * *",
     max_active_runs=1
 ) as dag:
 
     start_data_pipeline = DummyOperator(task_id="start_data_pipeline")
-
-    
 
     data_to_s3 = PythonOperator(
         task_id="data_to_s3",
@@ -136,19 +134,11 @@ with DAG(
         op_kwargs={"filename": local_data, "key": s3_data}
     )
 
-#data_to_s3 = S3CreateObjectOperator(
-    #    task_id="create_object",
-    #    s3_bucket=BUCKET_NAME ,
-    #    s3_key=s3_data,
-    #    data=local_data,
-    #    replace=True,
-    #)
-
-script_to_s3 = PythonOperator(
-        task_id="script_to_s3",
-        python_callable=_local_to_s3,
-        op_kwargs={"filename": local_script, "key": s3_script}
-    )
+    script_to_s3 = PythonOperator(
+            task_id="script_to_s3",
+            python_callable=_local_to_s3,
+            op_kwargs={"filename": local_script, "key": s3_script}
+        )
 
     # Create an EMR cluster
     #create_emr_cluster = EmrCreateJobFlowOperator(
