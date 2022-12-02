@@ -6,12 +6,12 @@ from airflow.hooks.S3_hook import S3Hook
 from airflow.operators.python import PythonOperator
 #from airflow.providers.amazon.aws.operators.s3 import S3CreateObjectOperator
 from airflow.contrib.operators.emr_create_job_flow_operator import (
-    EmrCreateJobFlowOperator,
+    EmrCreateJobFlowOperator
 )
 from airflow.contrib.operators.emr_add_steps_operator import EmrAddStepsOperator
 from airflow.contrib.sensors.emr_step_sensor import EmrStepSensor
 from airflow.contrib.operators.emr_terminate_job_flow_operator import (
-    EmrTerminateJobFlowOperator,
+    EmrTerminateJobFlowOperator
 )
 
 # Configurations
