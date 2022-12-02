@@ -123,7 +123,8 @@ with DAG(
     "spark_submit_airflow",
     default_args=default_args,
     schedule_interval="30 * * * *",
-    max_active_runs=1
+    max_active_runs=1,
+    catchup=False
 ) as dag:
 
     start_data_pipeline = DummyOperator(task_id="start_data_pipeline")
