@@ -122,7 +122,7 @@ default_args = {
 with DAG(
     "spark_submit_airflow",
     default_args=default_args,
-    schedule_interval="0 * 10 * *",
+    schedule_interval="30 * * * *",
     max_active_runs=1
 ) as dag:
 
