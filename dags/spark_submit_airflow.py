@@ -146,15 +146,15 @@ with DAG(
     create_emr_cluster = EmrCreateJobFlowOperator(
         task_id="create_emr_cluster",
         job_flow_overrides=JOB_FLOW_OVERRIDES,
-    #    aws_conn_id="aws_default",
-    #    emr_conn_id="emr_default"
+        aws_conn_id="aws_default",
+        emr_conn_id="emr_default"
     )
 
     # Add your steps to the EMR cluster
     step_adder = EmrAddStepsOperator(
         task_id="add_steps",
         job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
-    #    aws_conn_id="aws_default",
+        aws_conn_id="aws_default",
         steps=SPARK_STEPS,
         params={
             "BUCKET_NAME": BUCKET_NAME,
@@ -172,14 +172,14 @@ with DAG(
         step_id="{{ task_instance.xcom_pull(task_ids='add_steps', key='return_value')["
         + str(last_step)
         + "] }}",
-    #    aws_conn_id="aws_default"
+        aws_conn_id="aws_default"
     )
 
     # Terminate the EMR cluster
     terminate_emr_cluster = EmrTerminateJobFlowOperator(
         task_id="terminate_emr_cluster",
         job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
-    #    aws_conn_id="aws_default"
+        aws_conn_id="aws_default"
     )
 
     end_data_pipeline = DummyOperator(task_id="end_data_pipeline")
